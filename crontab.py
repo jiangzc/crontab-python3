@@ -68,12 +68,19 @@ class Event(object):
 class CronTab(object):
     def __init__(self, *events):
         self.events = list(events)
+        self.path = None
 
     def loads(self, path):
         """Load Events from file"""
+        self.path = path
         with open(path, 'r') as f:
             for line in f.readlines():
                 self.events.append(Event.loads(line))
+
+    def update(self):
+        if self.path != None:
+            self.events.clear()
+            self.loads(self.path)
 
     def run(self):
         while time.gmtime(time.time()).tm_sec not in range(5, 50):
@@ -82,6 +89,7 @@ class CronTab(object):
         print('Start Runing...')
         t = int(time.time())
         while True:
+            self.update()
             for e in self.events:
                 e.check(time.time())
             t += 60

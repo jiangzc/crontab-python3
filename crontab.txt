@@ -1,1 +1,1 @@
-* * * * * C:\Windows\system32\notepad.exe
+4 40 * * * /usr/bin/python3 /home/jzc/Bilibili/bilibili.py
