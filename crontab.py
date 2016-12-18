@@ -61,7 +61,7 @@ class Event(object):
                      str(self.day),
                      str(self.month),
                      str(self.week),
-                     self.action))
+                     " ".join(self.action)))
         return " ".join(data)
 
 
@@ -99,11 +99,9 @@ class CronTab(object):
 def main():
     c = CronTab()
     c.loads(os.path.join(PATH, 'crontab.txt'))
-
     print('-----List-----')
-
     for event in c.events:
-        print(event.action)
+        print(event)
     print('--------------')
     c.run()
 

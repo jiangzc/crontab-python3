@@ -1,1 +1,1 @@
-6 6 * * * C:\Users\Jiangzhiheng\AppData\Local\Programs\Python\Python35\python.exe C:\Users\Jiangzhiheng\OneDrive\github\Bilibili\bilibili.py
+9 6 * * * /usr/bin/python3 /home/jzc/test.py
