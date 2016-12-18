@@ -32,7 +32,7 @@ class Event(object):
         self.day = _int(day)
         self.month = _int(month)
         self.week = _int(week)
-        self.action = " ".join(action)
+        self.action = action
 
     def loads(text):
         """Create an Event from text"""
@@ -83,7 +83,7 @@ class CronTab(object):
             self.loads(self.path)
 
     def run(self):
-        while time.gmtime(time.time()).tm_sec not in range(5, 50):
+        while time.gmtime(time.time()).tm_sec not in range(5, 45):
             print('Waiting...')
             time.sleep(5)
         print('Start Runing...')
@@ -101,8 +101,9 @@ def main():
     c.loads(os.path.join(PATH, 'crontab.txt'))
 
     print('-----List-----')
+
     for event in c.events:
-        print(event)
+        print(event.action)
     print('--------------')
     c.run()
 

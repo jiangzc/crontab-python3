@@ -7,6 +7,7 @@
 
 ##规则格式
 基本格式 : crontab的简化版
+时间标准 : Greenwich Mean Time(GMT)
 *　　*　　*　　*　　*　　command 
 分　时　日　月　周　命令 
 第1列表示分钟0～59
@@ -16,6 +17,6 @@
 第5列标识号星期0～6（0表示星期天）
 第6列要运行的命令
 
-示例 ：
+示例 :
 30 21 * * * /usr/local/etc/rc.d/lighttpd restart 
 每晚的21:30重启apache。 
