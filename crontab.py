@@ -5,7 +5,11 @@ import sys
 from subprocess import Popen
 
 
-PATH = os.path.abspath(os.path.dirname(sys.argv[0]))
+def _int(x):
+    if type(x) == AllMatch:
+        return allMatch
+    else:
+        return int(x)
 
 
 class AllMatch():
@@ -17,12 +21,7 @@ class AllMatch():
         return "*"
 
 allMatch = AllMatch()
-
-def _int(x):
-    if type(x) == AllMatch:
-        return allMatch
-    else:
-        return int(x)
+PATH = os.path.abspath(os.path.dirname(sys.argv[0]))
 
 # The actual Event class
 class Event(object):
@@ -33,15 +32,15 @@ class Event(object):
         self.day = _int(day)
         self.month = _int(month)
         self.week = _int(week)
-        self.action = action
+        self.action = " ".join(action)
 
     def loads(text):
         """Create an Event from text"""
-        data = text.split(' ', 6)
+        data = text.split(' ')
         for n in range(len(data)):
             if data[n] == '*':
                 data[n] = allMatch
-        return Event(data[5], data[0], data[1], data[2], data[3], data[4])
+        return Event(data[5:], data[0], data[1], data[2], data[3], data[4])
 
     def matchtime(self, t):
         """Return True if this event should trigger at the specified datetime"""
@@ -78,7 +77,9 @@ class CronTab(object):
 
     def run(self):
         while time.gmtime(time.time()).tm_sec not in range(5, 50):
+            print('Waiting...')
             time.sleep(5)
+        print('Start Runing...')
         t = int(time.time())
         while True:
             for e in self.events:
@@ -90,7 +91,7 @@ class CronTab(object):
 def main():
     c = CronTab()
     c.loads(os.path.join(PATH, 'crontab.txt'))
-    print('Runing...')
+
     print('-----List-----')
     for event in c.events:
         print(event)
